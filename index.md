@@ -1,14 +1,15 @@
 ## Note on deep learning
-<h3>Main Topics:</h3>
 
-<h4>Deep learning algorithms</h4>
-<h4>Tensorflow</h4>
+### Main Topics:
 
-<h5>
-解决saver函数的max_to_keep参数无效的方法（Tensorflow）
+####1.Deep learning algorithms
+####2.Tensorflow
+
+
+####解决saver函数的max_to_keep参数无效的方法（Tensorflow）
 issue链接：https://github.com/tensorflow/tensorflow/issues/5929
-
-因为checkpoint文件太大可能会造成系统崩溃，所以提供了一个临时方案，如下：</h5>
+因为checkpoint文件太大可能会造成系统崩溃，所以提供了一个临时方案，如下：
+```python
 def rm_old_ckpfiles(log_dir):
     last_chk_path = tf.train.latest_checkpoint(checkpoint_dir=log_dir)
 
@@ -18,3 +19,4 @@ def rm_old_ckpfiles(log_dir):
 
     for f in old_chk_list:
         os.remove(os.path.join(log_dir, f))
+```
