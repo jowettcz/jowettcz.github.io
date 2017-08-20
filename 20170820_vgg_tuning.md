@@ -15,29 +15,20 @@
 
 batch size是50，cifar数据集是50000，所以1000次是完整的一轮
 
-step 8500, training accuracy 0.8573
-step 8500, test accuracy 0.6426
+step 8500, training accuracy 0.8573,test accuracy 0.6426
 
-step 9500, training accuracy 0.92254
-step 9500, test accuracy 0.6503
+step 9500, training accuracy 0.92254,test accuracy 0.6503
 
-step 10500, training accuracy 0.94986
-step 10500, test accuracy 0.6654
+step 10500, training accuracy 0.94986, test accuracy 0.6654
 
-step 11500, training accuracy 0.964
-step 11500, test accuracy 0.6626
+step 11500, training accuracy 0.964, test accuracy 0.6626
 
-step 12500, training accuracy 0.96776
-step 12500, test accuracy 0.6817
+step 12500, training accuracy 0.96776, test accuracy 0.6817
 
-step 13500, training accuracy 0.96864
-step 13500, test accuracy 0.6604
+step 13500, training accuracy 0.96864, test accuracy 0.6604
 
-step 14500, training accuracy 0.98308
-step 14500, test accuracy 0.6784
+step 14500, training accuracy 0.98308, test accuracy 0.6784
 
-step 15500, training accuracy 0.98346
-step 15500, test accuracy 0.6783
+step 15500, training accuracy 0.98346, test accuracy 0.6783
 
-step 16500, training accuracy 0.98476
-step 16500, test accuracy 0.6764
+step 16500, training accuracy 0.98476, test accuracy 0.6764
