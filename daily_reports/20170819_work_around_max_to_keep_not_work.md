@@ -1,7 +1,7 @@
 #### 解决saver函数的max_to_keep参数无效的方法（Tensorflow）
 #### issue链接：https://github.com/tensorflow/tensorflow/issues/5929
  
-因为checkpoint文件太大可能会造成系统崩溃，所以提供了一个临时方案，如下：
+因为checkpoint文件太大可能会造成系统崩溃，所以在这里提供一个临时方案，并测试通过，如下：
 
 ```python
 def rm_old_ckpfiles(log_dir):
