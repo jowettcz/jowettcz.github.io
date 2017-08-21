@@ -230,6 +230,20 @@ Saved checkpoint 37000 steps.
 
 step 37000, training accuracy 0.76156
 step 37000, test accuracy 0.7231
+current step:37500, example per seconds:193.873068, seconds per batch50:0.257901
+Saved checkpoint 37500 steps.
+current step:38000, example per seconds:285.072871, seconds per batch50:0.175394
+Saved checkpoint 38000 steps.
+step 38000, training accuracy 0.78242
+step 38000, test accuracy 0.7369
+current step:38500, example per seconds:196.044203, seconds per batch50:0.255045
+Saved checkpoint 38500 steps.
+current step:39000, example per seconds:286.040013, seconds per batch50:0.174801
+Saved checkpoint 39000 steps.
+step 39000, training accuracy 0.75386
+step 39000, test accuracy 0.7141
+current step:39500, example per seconds:195.150577, seconds per batch50:0.256212
+Saved checkpoint 39500 steps.
 
 
 
