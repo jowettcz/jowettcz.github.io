@@ -1,0 +1,271 @@
+方案二：深度优先的树遍历，使用JAVA实现
+
+假设在网路上购买了一堆商品，A1,A2,A3,A4,A5,A6,A7,A10,A15,A20,A25,A30
+商店有套餐福利，满足购物套餐的物品组，可以打九折。（一个商品只能计算
+在一个套餐中。）
+G1: A1,A2,A3,A4,A5,A6
+G2: A1,A2,A50
+G3: A1,A2,A3,A4
+G4: A5,A10,A20,A30
+G5: A5,A6,A10,A15
+G6: A20,A30
+G7: A20,A25,A30
+该如何选择套餐，让【剩下来的商品最少】？请描述做法以及数据结构
+
+import java.util.*;
+/**递归解法
+初始化root节点，所有套餐各自为一个root的节点的child
+考察第一层第一个child节点，在套餐列表里面的位置为0，剩下的的所有套餐可以形成他的子节点
+考察第二层第一个child节点的第一个child节点，在套餐列表里面的位置为1，从2开始的所有套餐可以形成他的子节点
+.....
+考察第一层第二个child节点，在套餐列表里面的位置为1，从2开始的所有套餐可以形成他的子节点
+考察第二层第二个child节点的第一个child节点，在套餐列表里面的位置为2，从3开始的所有套餐可以形成他的子节点
+.....
+整棵树的叶子数为127, 大致示意如下
+                                         root
+        0            1             2                3              4     5     6
+   1 2 3 4 5 6    2 3 4 5 6     3 4 5 6        4    5    6        5 6    6
+       ...          ...           ...         5 6   6            6
+                                  ...        6
+分析可得如果当前节点不合法，那么他的所有子节点都不合法，这时可以搜索他的兄弟节点，避免了对不合法节点的深入搜索
+如果全部兄弟节点都搜索完毕，则搜索父节点的兄弟节点，直到尝试搜索根节点的兄弟节点的时候为止
+**/
+public class TreeSearch{
+    TreeNode root= new TreeNode();
+    //所有套餐列表
+    ArrayList<Package> allPackageList;
+    //最佳套餐列表
+    ArrayList<Integer> bestPackageList;
+    //最佳套餐包含的产品数量
+    int max_num = 0;
+
+    public static void main(String[] args) {     
+        TreeSearch tree = new TreeSearch();
+        
+        ArrayList<Package> packages_list = new ArrayList<Package>();
+        packages_list.add(tree.new Package(new String("G1"), 0, new String("A1 A2 A3 A4 A5 A6")));
+        packages_list.add(tree.new Package(new String("G2"), 1, new String("A1 A2 A50")));
+        packages_list.add(tree.new Package(new String("G3"), 2, new String("A1 A2 A3 A4")));
+        packages_list.add(tree.new Package(new String("G4"), 3, new String("A5 A10 A20 30")));
+        packages_list.add(tree.new Package(new String("G5"), 4, new String("A5 A6 A10 A15")));
+        packages_list.add(tree.new Package(new String("G6"), 5, new String("A20 A30")));
+        packages_list.add(tree.new Package(new String("G7"), 6, new String("A20 A25 A30")));
+
+        tree.setPackageList(packages_list);
+        tree.generate_children(tree.getRoot());
+        tree.search();
+    }   
+    
+    class Package{
+    		String name;
+    		int idx;
+    		ArrayList<String> products;
+    		
+    		public Package(String _name,int _idx, String _products) {
+    			name = _name;
+    			idx = _idx;
+    			products = new ArrayList<String>(Arrays.asList(_products.split(" ")));
+			
+    		}
+    		
+    		//判断与另外一个节点是否含有同样的元素
+    		boolean intersection(Package other) {
+    			for(int i=0; i< products.size(); i++) {
+    				for(int j=0; j<other.products.size();j++) {
+    					if( products.get(i).equalsIgnoreCase(other.getProducts().get(j))){
+    						return true;
+    					}
+    				}
+    			}
+    			return false;
+    		}
+    		
+    		int getIndex(){
+    			return idx;
+    		}
+    		
+    		String getName() {
+    			return name;
+    		}
+    		
+    		ArrayList<String> getProducts() {
+    			return products;
+    		}
+    }
+
+
+    public TreeSearch(){
+    		//initialize
+    }
+
+    public void setPackageList(ArrayList<Package> _packageList){
+    		allPackageList = _packageList;
+    }
+
+    	//产生子节点
+    void generate_children(TreeNode _node){
+
+    		if (validate(_node) && _node.getChildren().size() == 0){
+    			int index_from;
+    			if( _node.getValue()< allPackageList.size()-1 ){
+
+    				index_from = _node.getValue()+1;
+    			}else{
+
+    				return;
+    			}
+
+    			//从大于当前节点的索引值开始增加子节点    			
+    			for(int i = index_from; i<allPackageList.size() ; i++){
+    				_node.getChildren().add(new TreeNode(i,_node));    				
+    			}
+    			//设置横向节点的关联关系
+    			for(int i=0;i<_node.getChildren().size();i++){
+    				//设置后向节点
+    				if( i<_node.getChildren().size()-1) {
+    					_node.getChildren().get(i).setNextBrother(_node.getChildren().get(i+1));
+    				}  				    				
+    			}    			
+    		} 
+    }
+
+    //迭代追溯当前节点和父节点是否有重复商品，有则为无效节点；否则有效
+    boolean validate(TreeNode _node){
+        TreeNode pointer = _node.getParent();
+        while(pointer != null){
+            if(pointer.getValue() >= 0 ){
+            		Package curr_package = allPackageList.get(_node.getValue());
+            		Package parent_package = allPackageList.get(pointer.getValue());
+            		if(curr_package.intersection(parent_package)){
+            			//有父节点有相同元素，则判断为不合法
+            			return false;
+            		}
+            }
+            //没有相同元素，继续向上回溯，直到根节点为止
+            pointer = pointer.getParent();           
+        }
+        
+        return true;
+    }
+
+    //从当前节点获取所有分支路径的套餐索引，生成一个数组
+    ArrayList<Integer> getInteratedPackageValues(TreeNode _node){
+    		ArrayList<Integer> valuelist = new ArrayList<Integer>();
+    		if(_node == null || _node.getValue() == -1){	
+    			return valuelist;
+    		}   			
+
+    		TreeNode pointer = _node; 
+    		//循环向上获取父节点的套餐索引
+    		while(pointer.getValue() != -1 && validate(pointer)){
+    			valuelist.add(pointer.getValue());
+    			pointer = pointer.getParent();    			
+    		}    		
+    		return valuelist;
+    }
+    //从套餐索引数组中获得总的商品数量
+    ArrayList<String> getProductsFromPackageValue(ArrayList<Integer> _valueList){
+    		ArrayList<String> products = new ArrayList<String>();
+    		if( _valueList.size() == 0){
+    			return products;
+    		}
+    		
+    		for(int i=0; i<_valueList.size();i++){
+    			int packageValue = _valueList.get(i).intValue();
+    			ArrayList<String> products_array = allPackageList.get(packageValue).getProducts();    			
+    			ArrayList<String> products_copy = new ArrayList<String>(Arrays.asList(products_array.toArray(new String[0])));
+    			products.addAll(products_copy);
+    		}
+    		return products;
+    }
+    //搜索        		
+    void search(){
+    		this.max_num = 0;
+    		_search(root);
+    		
+    		System.out.println("Best package list :");
+    		for(Integer p: this.bestPackageList.toArray(new Integer[0])){
+    			System.out.println(this.allPackageList.get(p.intValue()).getName());
+    		}    		
+    		System.out.println("Number of  packages: " + this.max_num);
+    }
+    
+    //迭代深度优先搜索
+    void _search(TreeNode _node){			
+		ArrayList<Integer> packageValues = getInteratedPackageValues(_node);
+		ArrayList<String> products = getProductsFromPackageValue(packageValues);
+		
+		int products_num;
+		if( products == null) {
+			products_num = 0;
+		}else{
+			products_num = products.size();	
+		}
+		
+		if(products_num > max_num){
+			this.max_num = products_num;
+			this.bestPackageList = packageValues;
+		}
+		//如果当前节点还没有子节点，则生成
+		if(_node.getChildren().size() == 0) {
+			if( validate(_node) ){				
+				generate_children(_node);
+			}			
+		}
+		//搜索的优先级为：子节点-》-》父节点的
+		if( _node.getChildren().size() > 0) {
+			_search(_node.getChildren().get(0));
+		}else if( _node.getNextBrother() != null){
+			_search(_node.getNextBrother());
+		}else if( _node.getParent() != null && _node.getParent().getNextBrother() != null){
+			_search(_node.getParent().getNextBrother());
+		}
+		
+		return;
+    }
+
+    TreeNode getRoot(){
+        return root;
+    }
+
+    private class TreeNode{
+        int value = -1;
+        TreeNode parent = null;
+        TreeNode nextBrother = null;
+        ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+
+        public int getValue(){
+            return value;
+        }
+        public TreeNode getParent(){
+            return parent;
+        }
+
+        public TreeNode getNextBrother(){
+            return nextBrother;
+        }
+        public TreeNode setNextBrother(TreeNode _next){
+            return nextBrother = _next;
+        }
+        public ArrayList<TreeNode> getChildren(){
+           return children;
+        }
+        public TreeNode(){
+        		//default implementation
+        }
+        public TreeNode(int _index, TreeNode _parent){
+            value = _index;
+            parent = _parent;
+        }
+
+        public int level(){
+            TreeNode pointer = this;
+            int count = 0;
+            while(pointer.parent != null){
+                count += 1;
+                pointer = pointer.parent;
+            }
+            return count;
+        }
+    }
+}
