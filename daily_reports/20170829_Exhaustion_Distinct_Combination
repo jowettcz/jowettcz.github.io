@@ -1,0 +1,73 @@
+最近遇到的一个算法题目，
+假设在网路上购买了一堆商品，A1,A2,A3,A4,A5,A6,A7,A10,A15,A20,A25,A30
+商店有套餐福利，满足购物套餐的物品组，可以打九折。（一个商品只能计算在一个套餐中。）
+G1: A1,A2,A3,A4,A5,A6
+G2: A1,A2,A50
+G3: A1,A2,A3,A4
+G4: A5,A10,A20,A30
+G5: A5,A6,A10,A15
+G6: A20,A30
+G7: A20,A25,A30
+该如何选择套餐，让【剩下来的商品最少】？请描述做法以及数据结构
+
+下面是使用python实现穷举，
+
+products = list('A1 A2 A3 A4 A5 A6 A7 A10 A15 A20 A25 A30'.split())
+all_packages_dic ={
+'G1': set('A1 A2 A3 A4 A5 A6'.split()),
+# # G2 = set('A1 A2 A5 A10') G2可能是笔误
+'G2': set('A1 A2 A50'.split()),
+'G3': set('A1 A2 A3 A4'.split()),
+'G4': set('A5 A10 A20 30'.split()),
+'G5': set('A5 A6 A10 A15'.split()),
+'G6': set('A20 A30'.split()),
+'G7': set('A20 A25 A30'.split()),
+}
+
+packages = all_packages_dic.keys()
+length = len(packages)
+
+
+products_count = 0
+result_package = set()
+
+for i in range(1,2**length):
+    comb_packages = set()
+    comb_products = set()
+
+    for j,p in enumerate(packages):
+
+        """利用二进制中每一位是否出现（为1或者0）来遍历计算可能的组合
+        如有3种套餐的情况下：
+            G1  G2  G3
+            0   0   0   :0
+            0   0   1   :1
+            0   1   0   :2
+            0   1   1   :3
+            1   0   0   :4
+            1   0   1   :5
+            1   1   0   :6
+            1   1   1   :7              
+        """
+        if (i & (1 << j)):
+            curr_prd_set = all_packages_dic[p]
+            repeated = comb_products.isdisjoint(curr_prd_set)
+
+            if len(comb_products)==0 or repeated:
+                comb_products = comb_products.union(curr_prd_set)
+                comb_packages.add(p)
+
+            if not repeated:
+                break
+
+    if len(comb_products) > products_count:
+        print(len(comb_products))
+        print(products_count)
+        products_count = len(comb_products)
+        result_package = comb_packages
+
+print('result packages:')
+for p in result_package:
+    print(p)
+
+print('max number of products in packages: {0}'.format(products_count))
