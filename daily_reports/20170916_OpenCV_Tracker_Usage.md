@@ -18,5 +18,5 @@ Ptr<Tracker> tracker = Tracker::create( "MIL" );
 Ptr<TrackerMIL > tracker = TrackerMIL::create();
 ```
 
-OpenCV的代码不同的版本变化很大，例如有些代码主分支代码已经移到contrib上，这种不稳定也给开发者挖了不少坑，
+OpenCV的代码不同的版本变化很大，例如有些代码已经从主分支上迁移到contrib上，这种不稳定也给开发者挖了不少坑。
 不过总的来说，OpenCV还是图像处理工程师的福音，还是目前最好的轮子。
