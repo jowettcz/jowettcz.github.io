@@ -7,7 +7,7 @@
 // Instead of MIL, you can also use 
 // BOOSTING, KCF, TLD, MEDIANFLOW or GOTURN  
 Ptr<Tracker> tracker = Tracker::create( "MIL" );
-```C++
+```
 这是一个工厂模式，根据不同的算法，如TLD,BOOSTING作为参数，来构造对象
 
 而在3.3.0上，每一个Tracker是一个单独的Class,都继承于Tracker类，代码如下：
@@ -16,7 +16,7 @@ Ptr<Tracker> tracker = Tracker::create( "MIL" );
 // Instead of MIL, you can also use
 // BOOSTING, KCF, TLD, MEDIANFLOW or GOTURN
 Ptr<TrackerMIL > tracker = TrackerMIL::create();
-```C++
+```
 
 OpenCV的代码不同的版本变化很大，例如有些代码主分支代码已经移到contrib上，这种不稳定也给开发者挖了不少坑，
 不过总的来说，OpenCV还是图像处理工程师的福音，还是目前最好的轮子。
