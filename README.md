@@ -6,6 +6,7 @@
 - [20170820:VGG Tuning](/daily_reports/20170820_vgg_tuning.md)
 - [20170821:Slim to slim the code](/daily_reports/20170821_use_slim.md)
 - [20170822:VGG Tuning Regularization](/daily_reports/20170822_vgg_tuning_regularization_simplify.md)
+- [20170916:OpenCV Tracker Class Usage](/daily_reports/20170916_OpenCV_Tracker_Usage.md
 
 
 
