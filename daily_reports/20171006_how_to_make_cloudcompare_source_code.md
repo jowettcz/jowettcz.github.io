@@ -37,4 +37,8 @@
 make
 
 ### 安装
-1. sudo make install
+sudo make install
+默认安装在根目录下，见/CloudCompare/CloudCompare.app/Contents/MacOS/CloudCompare
+
+搞定！
+
