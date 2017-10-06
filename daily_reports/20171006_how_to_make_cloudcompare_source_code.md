@@ -11,7 +11,7 @@
 3. 安装Boost库
 > 见[官网](http://www.boost.org/)
 4. 下载最新的CloudCompare的Trunk分支
-> git clone --recursive https://github.com/cloudcompare/trunk.git
+> ```git clone --recursive https://github.com/cloudcompare/trunk.git```
 
 ### 编译：
 1. 设置cmake的环境变量，
@@ -38,7 +38,7 @@ make
 
 ### 安装
 sudo make install
-默认安装在根目录下，见/CloudCompare/CloudCompare.app/Contents/MacOS/CloudCompare
+- 默认安装在根目录下，见/CloudCompare/CloudCompare.app/Contents/MacOS/CloudCompare
 
 搞定！
 
