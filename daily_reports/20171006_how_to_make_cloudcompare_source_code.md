@@ -1,10 +1,16 @@
 ## MAC环境下CloudCompare源代码编译
 
+### 官方文档：
+请先看[官方编译文档](https://github.com/CloudCompare/CloudCompare/blob/master/BUILD.md)，有问题的话可参阅本文
+
 ### 准备步骤：
-1. 安装cmake
-2. 安装qt-sdk
+1. 安装cmake:步骤见cmake官网：https://cmake.org/download/
+2. 安装Qt:
+> 可安装Open Source版本，https://info.qt.io/download-qt-for-application-development
 3. 安装Boost库
+> 见官网：http://www.boost.org/
 4. 下载最新的CloudCompare的Trunk分支
+git clone --recursive https://github.com/cloudcompare/trunk.git
 
 ### 编译：
 1. 设置cmake的环境变量，
@@ -31,6 +37,3 @@ make
 
 ### 安装
 1. sudo make install
-
-
-
