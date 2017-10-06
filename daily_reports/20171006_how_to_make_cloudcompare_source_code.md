@@ -14,8 +14,11 @@
 > ```git clone --recursive https://github.com/cloudcompare/trunk.git```
 
 ### 编译：
-1. 设置cmake的环境变量，
+1. 运行cmake
+- 设定source code即Clone下来的工程目录
+- 设定目标程序的目录为工程目录下面新创建的build文件夹
 
+2. 设置cmake的环境变量，
 - QT5_ROOT_PATH={YourQtInstallPath}/Qt/5.X.X/clang_64/bin
 - CMAKE_MODULE_PATH={YourQtInstallPath}/Qt/5.X.X/clang_64/lib/cmake
 - Qt5Concurrent_DIR={YourQtInstallPath}／Qt/5.9.1/clang_64/lib/cmake/Qt5Concurrent
@@ -26,8 +29,6 @@
 - Qt5Concurrent_DIR={YourQtInstallPath}／Qt/5.9.1/clang_64/lib/cmake/Qt5Concurrent
 - Qt5OpenGL_DIR={YourQtInstallPath}／Qt/5.9.1/clang_64/lib/cmake/Qt5OpenGL
 - Qt5OpenGLExtensions_DIR={YourQtInstallPath}／Qt/5.9.1/clang_64/lib/cmake/Qt5OpenGLExtensions
-
-
 使用cmake来编译cc的各个模块，请准备步骤中的各软件库可调用
 
 2. make
