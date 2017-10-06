@@ -7,8 +7,7 @@
 - [20170821:Slim to slim the code](/daily_reports/20170821_use_slim.md)
 - [20170822:VGG Tuning Regularization](/daily_reports/20170822_vgg_tuning_regularization_simplify.md)
 - [20170916:OpenCV Tracker Class Usage](/daily_reports/20170916_OpenCV_Tracker_Usage.md)
-- [20171006:How to make CloudCompare source code](/daily_reports/20171006_how_to_make_cloudcompare_source_code.md）
-
+- [20170916:How to make CloudCompare source code](/daily_reports/20171006_how_to_make_cloudcompare_source_code.md)
 
 
 
