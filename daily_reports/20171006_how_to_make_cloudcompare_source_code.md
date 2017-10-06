@@ -5,13 +5,13 @@
 
 ### 准备步骤：
 1. 安装cmake:
-> 步骤见cmake官网：https://cmake.org/download/
+> 步骤见[cmake官网](https://cmake.org/download/)
 2. 安装Qt:
-> 可安装Open Source版本，https://info.qt.io/download-qt-for-application-development
+> 可安装[Open Source版本](https://info.qt.io/download-qt-for-application-development)
 3. 安装Boost库
-> 见官网：http://www.boost.org/
+> 见[官网](http://www.boost.org/)
 4. 下载最新的CloudCompare的Trunk分支
-git clone --recursive https://github.com/cloudcompare/trunk.git
+> git clone --recursive https://github.com/cloudcompare/trunk.git
 
 ### 编译：
 1. 设置cmake的环境变量，
