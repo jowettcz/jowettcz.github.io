@@ -4,7 +4,8 @@
 请先看[官方编译文档](https://github.com/CloudCompare/CloudCompare/blob/master/BUILD.md)，有问题的话可参阅本文
 
 ### 准备步骤：
-1. 安装cmake:步骤见cmake官网：https://cmake.org/download/
+1. 安装cmake:
+> 步骤见cmake官网：https://cmake.org/download/
 2. 安装Qt:
 > 可安装Open Source版本，https://info.qt.io/download-qt-for-application-development
 3. 安装Boost库
