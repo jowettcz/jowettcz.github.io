@@ -32,10 +32,10 @@
 使用cmake来编译cc的各个模块，请准备步骤中的各软件库可调用
 
 2. make
+先把依赖的boost库复制过来，然后make
 - sudo cp /usr/local/Cellar/boost/1.64.0_1/lib/libboost_thread-mt.dylib /CloudCompare/CloudCompare.app/Contents/Frameworks/
-- sudo cp /usr/local/Cellar/boost/1.64.0_1/lib/libboost_thread-mt.dylib /CloudCompare/CloudCompare.app/Contents/Frameworks/
-
-make
+- sudo cp /usr/local/Cellar/boost/1.64.0_1/lib/libboost_thread-mt.dylib /CloudCompare/CloudCompare.app/Contents/Frameworks/- 
+- make
 
 ### 安装
 sudo make install
