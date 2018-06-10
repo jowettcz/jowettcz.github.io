@@ -9,17 +9,12 @@ Android库中显示的可支持的传感器类型共有11种，但是并不是�
 
 Android提供的API中对于不同传感器的调用都是用同一个接口，这样编程起来显得非常简单。先得到传感器的控制器，然后注册你感兴趣的感应事件，代码如下
 
-```JAVA
+```java
 SensorManager SensorManager= (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-
 //注册方位角传感器，感应事件的周期是0.12s产生一次报告
-
 mSensorManager.registerListener(mListener,
-
              SensorManager.SENSOR_ORIENTATION,
-
              SensorManager.SENSOR_DELAY_NORMAL
-
 );
 ```
 如果想要获得其他感应事件，只需要修改第二个参数为相应的传感器对应的枚举数值，第三个参数是感应事件的频率，设置感应事件频率，有四种频率模式可选，每个相差0.04s。然后设置一个监听器，利用监听接口onSensorChanged来读取具体感应的内容
