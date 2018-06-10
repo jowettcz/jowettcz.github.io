@@ -6,7 +6,7 @@
 #### 2.Tensorflow
 
 ## Blogs：
-- [20120623:Android Sensors](/daily_reports/Android-Sensors-Gyroscope.md.md)
+- [20120623:Android Sensors Gyroscope](/daily_reports/Android-Sensors-Gyroscope.md.md)
 - [20170819:Max_to_keep not work in Tensorflow](/daily_reports/20170819_work_around_max_to_keep_not_work.md) 
 - [20170820:VGG Tuning](/daily_reports/20170820_vgg_tuning.md)
 - [20170821:Slim to slim the code](/daily_reports/20170821_use_slim.md)
