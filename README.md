@@ -1,4 +1,4 @@
-# Jowett's deep learning blog
+# Jowett's Technical Blog
 
 
 ## Blogs：
