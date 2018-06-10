@@ -9,7 +9,7 @@ Android库中显示的可支持的传感器类型共有11种，但是并不是�
 
 Android提供的API中对于不同传感器的调用都是用同一个接口，这样编程起来显得非常简单。先得到传感器的控制器，然后注册你感兴趣的感应事件，代码如下
 
-```Java
+```JAVA
 SensorManager SensorManager= (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
 //注册方位角传感器，感应事件的周期是0.12s产生一次报告
