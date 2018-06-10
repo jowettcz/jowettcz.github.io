@@ -17,6 +17,8 @@ mSensorManager.registerListener(mListener,
              SensorManager.SENSOR_DELAY_NORMAL
 );
 ```
+
+
 如果想要获得其他感应事件，只需要修改第二个参数为相应的传感器对应的枚举数值，第三个参数是感应事件的频率，设置感应事件频率，有四种频率模式可选，每个相差0.04s。然后设置一个监听器，利用监听接口onSensorChanged来读取具体感应的内容
 ```JAVA
 public void  onSensorChanged(int sensor, float[] values)
