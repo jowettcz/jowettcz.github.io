@@ -1,3 +1,6 @@
+注：这是我2012写的一篇技术博客，现在看起来会觉得写的太浅，但对于陀螺仪的空间几何原理描述的比较清楚，也提供了可执行的代码例子；时间过去很久了，在上海搬了几次家，很多东西都丢弃了，但是这篇文章仍然在网上很轻易地找到了，文字比你身边的很多物件都要长久。
+
+
 Android平台支持的丰富的传感器是其亮点之一，虽然相比iPhone来说稍有逊色，但相对于原来占据智能市场的Synbian等手机平台有一个明显的飞跃。我们现在看到的旅游出行必备的指南针，甩一甩就显示火苗的模拟打火机都是基于Android内置的传感器。本文主要向大家介绍一下传感器的类型和调用方法，并根据Android官方实例打造一个纯手工的指南针程序。
 
 传感器类型介绍
@@ -17,7 +20,6 @@ mSensorManager.registerListener(mListener,
              SensorManager.SENSOR_DELAY_NORMAL
 );
 ```
-
 
 如果想要获得其他感应事件，只需要修改第二个参数为相应的传感器对应的枚举数值，第三个参数是感应事件的频率，设置感应事件频率，有四种频率模式可选，每个相差0.04s。然后设置一个监听器，利用监听接口onSensorChanged来读取具体感应的内容
 ```JAVA
@@ -57,293 +59,124 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import
-android.graphics.Path;
+import android.graphics.Path;
+import android.hardware.Sensor;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.util.Config;
+import android.util.Log;
+import android.view.View;
 
-import
-android.hardware.Sensor;
+public class  Compass extends Activity{
+  private static  final  String TAG = "Compass";
+  private SensorManager mSensorManager;
+  private SampleView mView;
+  private float[] mValues;
+  private final  SensorListener mListener = new
+  
+  SensorListener() {
+    public void  onSensorChanged(int sensor, float[] values) {
 
-import
-android.hardware.SensorListener;
+    if (Config.DEBUG)
+      Log.d(TAG, "sensorChanged ("  + values[0] + ", "  + values[1] + ", "  + values[2] + ")");
+      mValues = values;
 
-import
-android.hardware.SensorManager;
+    if (mView != null) {
+      mView.invalidate();
+    }
+  }
 
-import
-android.os.Bundle;
-
-import
-android.util.Config;
-
-import
-android.util.Log;
-
-import
-android.view.View;
-
- 
-
-public
-class  Compass extends
-Activity{
-
- 
-
-private
-static  final  String TAG = "Compass";
-
- 
-
-private
-SensorManager mSensorManager;
-
-private
-SampleView mView;
-
-private
-float[] mValues;
-
- 
-
-private
-final  SensorListener mListener = new
-SensorListener() {
-
- 
-
-public
-void  onSensorChanged(int
-sensor, float[] values) {
-
-if
-(Config.DEBUG)
-
-Log.d(TAG, "sensorChanged ("  + values[0] + ", "  + values[1] + ", "  + values[2] + ")");
-
- 
-
-mValues = values;
-
-if
-(mView != null) {
-
-mView.invalidate();
-
-}
-
-}
-
- 
-
-public
-void  onAccuracyChanged(int
-sensor, int
-accuracy) {
-
-// TODO Auto-generated method stub
-
- 
-
-}
-
+  public void  onAccuracyChanged(int sensor, int accuracy) {
+    // TODO Auto-generated method stub
+  }
 };
 
  
-
 @Override
-
-protected
-void  onCreate(Bundle icicle) {
-
-super.onCreate(icicle);
-
-mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-
- 
-
-List sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
-
-Log.d(TAG, "There are "  + sensors.size() + " sensors.");
-
-for(Sensor sens : sensors)
-
-{
-
-Log.d(TAG, "Sensor name: "  + sens.getType());
-
-Log.d(TAG, "Sensor name: "  + sens.getName());
-
-}
-
-mView = new
-SampleView(this);
-
-setContentView(mView);
-
-}
-
- 
-
-@Override
-
-protected
-void  onResume()
-
-{
-
-if
-(Config.LOGD) Log.d(TAG, "onResume");
-
-super.onResume();
-
-mSensorManager.registerListener(mListener,
-
-SensorManager.SENSOR_ORIENTATION,
-
-SensorManager.SENSOR_DELAY_GAME);
-
-}
-
- 
-
-@Override
-
-protected
-void  onStop()
-
-{
-
-if
-(Config.LOGD) Log.d(TAG, "onStop");
-
-mSensorManager.unregisterListener(mListener);
-
-super.onStop();
-
-}
-
- 
-
-private
-class  SampleView extends
-View {
-
-private
-Paint   mPaint = new
-Paint();
-
-private
-Path    mPath = new
-Path();
-
-private
-boolean  mAnimate;
-
-private
-long     mNextTime;
-
- 
-
-public
-SampleView(Context context) {
-
-super(context);
-
- 
-
-// Construct a wedge-shaped path
-
-mPath.moveTo(0, -50);
-
-mPath.lineTo(-20, 60);
-
-mPath.lineTo(0, 50);
-
-mPath.lineTo(20, 60);
-
-mPath.close();
-
-}
-
- 
-
-@Override
-protected  void  onDraw(Canvas canvas) {
-
-Paint paint = mPaint;
-
- 
-
-canvas.drawColor(Color.WHITE);
-
- 
-
-paint.setAntiAlias(true);
-
-paint.setColor(Color.BLUE);
-
-paint.setStyle(Paint.Style.FILL);
-
- 
-
-int
-w = canvas.getWidth();
-
-int
-h = canvas.getHeight();
-
-int
-cx = w / 2;
-
-int
-cy = h / 2;
-
- 
-
-canvas.translate(cx, cy);
-
-if
-(mValues != null) {
-
-canvas.rotate(-mValues[0]);
-
-}
-
-canvas.drawPath(mPath, mPaint);
-
-}
-
- 
-
-@Override
-
-protected
-void  onAttachedToWindow() {
-
-mAnimate = true;
-
-super.onAttachedToWindow();
-
-}
-
- 
-
-@Override
-
-protected
-void  onDetachedFromWindow() {
-
-mAnimate = false;
-
-super.onDetachedFromWindow();
-
-}
-
-}
-
+protected void  onCreate(Bundle icicle) {
+    super.onCreate(icicle);
+    mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+
+    List sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+    Log.d(TAG, "There are " + sensors.size() + " sensors.");
+    for(Sensor sens : sensors)
+    {
+      Log.d(TAG, "Sensor name: " + sens.getType());
+      Log.d(TAG, "Sensor name: " + sens.getName());
+    }
+    mView = new SampleView(this);
+    setContentView(mView);
+  }
+  
+  
+  @Override
+  protected void onResume()
+  {
+    if (Config.LOGD) Log.d(TAG, "onResume");
+    super.onResume();
+    mSensorManager.registerListener(mListener,
+    SensorManager.SENSOR_ORIENTATION,
+    SensorManager.SENSOR_DELAY_GAME);
+  }
+  
+  @Override
+  protected void onStop()
+  {
+    if (Config.LOGD) Log.d(TAG, "onStop");
+    mSensorManager.unregisterListener(mListener);
+    super.onStop();
+  }
+  
+  private class SampleView extends View {
+    private Paint mPaint = new Paint();
+    private Path mPath = new Path();
+    private boolean mAnimate;
+    private long mNextTime;
+
+    public SampleView(Context context) {
+      super(context);
+      // Construct a wedge-shaped path
+      mPath.moveTo(0, -50);
+      mPath.lineTo(-20, 60);
+      mPath.lineTo(0, 50);
+      mPath.lineTo(20, 60);
+      mPath.close();
+    }
+
+    @Override 
+    protected void onDraw(Canvas canvas) {
+      Paint paint = mPaint;
+      canvas.drawColor(Color.WHITE);
+      paint.setAntiAlias(true);
+      paint.setColor(Color.BLUE);
+      paint.setStyle(Paint.Style.FILL);
+      int w = canvas.getWidth();
+      int h = canvas.getHeight();
+      int cx = w / 2;
+      int cy = h / 2;
+      canvas.translate(cx, cy);
+      
+      if (mValues != null) {
+        canvas.rotate(-mValues[0]);
+      }
+      canvas.drawPath(mPath, mPaint);
+  }
+  
+  @Override
+  protected void onAttachedToWindow() {
+    mAnimate = true;
+    super.onAttachedToWindow();
+    }
+    @Override
+    protected void onDetachedFromWindow() {
+      mAnimate = false;
+      super.onDetachedFromWindow();
+    }
+  }
 }
 ```
 
 除非注明，乔伊特博客文章均为原创，转载请以链接形式标明本文地址
-本文地址：http://www.ijowett.com/android-sensor-compass.html
+本文地址：https://github.com/jowettcz/jowettcz.github.io/edit/master/daily_reports/Android-Sensors-Introduction.md
 
