@@ -1,9 +1,10 @@
-## Note on deep learning
+## Note on Computer Vision
 
 ### Main Topics:
 
-#### 1.Deep learning algorithms
-#### 2.Tensorflow
+#### 1.Computer Vision
+#### 2.Stereo Vision
+#### 3.Deep learning algorithms,Tensorflow
 
 ## Blogs：
 - [20120623:Android Sensors Gyroscope](/daily_reports/Android-Sensors-Gyroscope.md.md)
