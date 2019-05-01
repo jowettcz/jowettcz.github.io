@@ -4,6 +4,7 @@
 ## Blogs：
 
 ### Thinking:
+- [20190501:Business Direction](/daily_reports/20190501_Business_Direction)
 
 
 ### Computer Vision:
