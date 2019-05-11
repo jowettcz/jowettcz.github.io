@@ -3,9 +3,12 @@
 
 ## Blogs：
 
+
 ### Thinking:
 - [20190501:Business Direction](/daily_reports/20190501_Business_Direction)
 
+### Monograph:
+- [20190511:Depth Camera Basics](/daily_reports/20190511_3D_Computer_Vision_Basics_And_Cpp_Implementation)
 
 ### Computer Vision:
 - [20170916:OpenCV Tracker Class Usage](/daily_reports/20170916_OpenCV_Tracker_Usage.md)
